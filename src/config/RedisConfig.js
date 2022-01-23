@@ -16,7 +16,7 @@ client.on('error', (err) => {
 client.connect();
 
 // 设置 redis 的值
-const setValue = (key, value, time)  => {
+const setValue = (key, value, time) => {
   if (typeof value === 'undefined' || value == null || value === '') {
     return
   }
@@ -41,7 +41,7 @@ const getHValue = (key) => {
   return client.hGetAll(key)
 }
 // 删除键值
-const delValue = (key) => { 
+const delValue = (key) => {
   client.del(key, (err, res) => {
     if (res === 1) {
       console.log('delete successfully: ' + key);

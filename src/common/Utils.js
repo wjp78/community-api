@@ -13,6 +13,27 @@ const checkCode = async (key, value) => {
   }
 }
 
+// 成功响应
+const responseSuccess = (ctx, msg = '', data = {}, code = 200) => {
+  ctx.body = {
+    code,
+    data,
+    msg
+  }
+}
+
+// 失败响应
+const responseFail = (ctx, msg = '', data = {}, code = 500) => {
+  ctx.status = code
+  ctx.body = {
+    code,
+    data,
+    msg
+  }
+}
+
 export {
-  checkCode
+  checkCode,
+  responseSuccess,
+  responseFail
 }
