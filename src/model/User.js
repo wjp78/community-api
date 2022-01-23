@@ -4,7 +4,12 @@ const Schema = mongoose.Schema
 
 const UserSchema = new Schema({
   'username': { type: String },
-  'password': { type: String }
+  'name': { type: String },
+  'password': { type: String },
+  createTime: {
+    type: Date,
+    default: Date.now()
+  }
 })
 
 const UserModel = mongoose.model('users', UserSchema)

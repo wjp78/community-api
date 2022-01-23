@@ -10,13 +10,14 @@
     "clean": "rimraf dist",
     "watch": "cross-env NODE_ENV=dev webpack  --watch --progress --config config/webpack.config.dev.js",
     "debug": "nodemon --inspect ./dist/server.bundle.js",
-    "dev": "npm-run-all -p watch debug"
+    "serve": "npm-run-all -p watch debug"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@koa/cors": "^3.1.0",
+    "bcrypt": "^5.0.1",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.3",
     "koa-body": "^4.2.0",
