@@ -17,7 +17,7 @@ const app = new koa()
 const isDevMode = process.env.NODE_ENV === 'prodeuction' ? false : true
 
 // 定义公共路经,不需要jwt鉴权
-const jwt = JWT({secret: config.JWT_SECRET}).unless({ path: [/^\/public/, /\/login/] })
+const jwt = JWT({ secret: config.JWT_SECRET }).unless({ path: [/^\/public/, /\/login/] })
 
 /**
  * 使用 koa-compose 集成中间件
@@ -36,7 +36,11 @@ if (!isDevMode) {
   app.use(compress())
 }
 
+let port = !isDevMode ? 12005 : 3000
+
 app.use(middleware)
 app.use(router())
 
-app.listen(3000)
+app.listen(port, () => {
+  console.log(`The server is running at: ${port}`)
+})
