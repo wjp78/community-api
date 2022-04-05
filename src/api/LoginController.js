@@ -1,14 +1,14 @@
 import send from '../config/MailConfig'
-import bcrypt from 'bcrypt'
+// import bcrypt from 'bcrypt'
 import moment from 'moment'
-import jsonwebtoken  from 'jsonwebtoken'
+import jsonwebtoken from 'jsonwebtoken'
 import config from '../config'
 import { checkCode, responseSuccess, responseFail } from '@/common/Utils'
 import User from '@/model/User'
 
 class LoginController {
-  constructor () {}
-  async forget(ctx) {
+  constructor() { }
+  async forget (ctx) {
     const { body } = ctx.request
     console.log(body)
     try {
@@ -26,16 +26,19 @@ class LoginController {
 
   async login (ctx) {
     // 接收用户的数据
-    const { sid, code, username, password} = ctx.request.body
+    const { sid, code, username, password } = ctx.request.body
     // 验证图片验证码的时效性、正确性
     const result = await checkCode(sid, code)
     if (result) {
       // 验证用户账号密码是否正确
       let checkUserPasswd = false
       let user = await User.findOne({ username })
-      if (await bcrypt.compare(password, user.password)) {
+      if (password === user.password) {
         checkUserPasswd = true
       }
+      // if (await bcrypt.compare(password, user.password)) {
+      //   checkUserPasswd = true
+      // }
       // mongoDB查库
       if (checkUserPasswd) {
         // 验证通过, 返回token数据
@@ -76,7 +79,7 @@ class LoginController {
       }
       // 写入数据到数据库
       if (check) {
-        password = await bcrypt.hash(password, 5)
+        // password = await bcrypt.hash(password, 5)
         let user = new User({
           username: username,
           name: name,
@@ -84,6 +87,7 @@ class LoginController {
           created: moment().format('YYYY-MM-DD HH:mm:ss')
         })
         let result = await user.save()
+        console.log('result', result);
         responseSuccess(ctx, '注册成功', result)
         return
       }
