@@ -1,5 +1,9 @@
 import send from '../config/MailConfig'
+<<<<<<< HEAD
 // import bcrypt from 'bcrypt'
+=======
+import bcrypt from 'bcrypt'
+>>>>>>> 699846859a39ed976c317a81cdf31c9d0507412b
 import moment from 'moment'
 import jsonwebtoken from 'jsonwebtoken'
 import config from '../config'
@@ -26,14 +30,22 @@ class LoginController {
 
   async login (ctx) {
     // 接收用户的数据
+<<<<<<< HEAD
     const { sid, code, username, password } = ctx.request.body
+=======
+    const { sid, code, username, password} = ctx.request.body
+>>>>>>> 699846859a39ed976c317a81cdf31c9d0507412b
     // 验证图片验证码的时效性、正确性
     const result = await checkCode(sid, code)
     if (result) {
       // 验证用户账号密码是否正确
       let checkUserPasswd = false
       let user = await User.findOne({ username })
+<<<<<<< HEAD
       if (password === user.password) {
+=======
+      if (await bcrypt.compare(password, user.password)) {
+>>>>>>> 699846859a39ed976c317a81cdf31c9d0507412b
         checkUserPasswd = true
       }
       // if (await bcrypt.compare(password, user.password)) {
@@ -79,7 +91,11 @@ class LoginController {
       }
       // 写入数据到数据库
       if (check) {
+<<<<<<< HEAD
         // password = await bcrypt.hash(password, 5)
+=======
+        password = await bcrypt.hash(password, 5)
+>>>>>>> 699846859a39ed976c317a81cdf31c9d0507412b
         let user = new User({
           username: username,
           name: name,
@@ -87,7 +103,10 @@ class LoginController {
           created: moment().format('YYYY-MM-DD HH:mm:ss')
         })
         let result = await user.save()
+<<<<<<< HEAD
         console.log('result', result);
+=======
+>>>>>>> 699846859a39ed976c317a81cdf31c9d0507412b
         responseSuccess(ctx, '注册成功', result)
         return
       }
